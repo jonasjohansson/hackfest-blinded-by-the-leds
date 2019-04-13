@@ -14,6 +14,9 @@ window.onload = function() {
 	var path;
 	var beat = 0;
 	var earliestnextbeat = 0;
+	var taptempotimes = [];
+	var beatstep = 0;
+	var lasttap = 0;
 
 	function doBeat() {
 		var T = Date.now();
@@ -70,7 +73,7 @@ window.onload = function() {
 			aggall /= 127;
 			aggall *= 100;
 
-			if (agg > t1 && aggall > t2) {
+			if (agg > t1 && aggall > t2 && !manualbpm) {
 				doBeat();
 			}
 
@@ -83,7 +86,7 @@ window.onload = function() {
 			document.getElementById('c').style.width = beat + '%';
 
 			beat = Math.max(0, beat * 0.8);
-
+			tickbpm();
 		};
 		doDraw();
 	};
@@ -101,4 +104,84 @@ window.onload = function() {
 		soundNotAllowed(err);
 	})
 
+	function taptempo() {
+		var T = Date.now();
+		if (lasttap < (T - 2000)) {
+			console.log('reset taptempo');
+			taptempotimes = [];
+		}
+		lasttap = T;
+		taptempotimes.push(T);
+		if (taptempotimes.length > 4) {
+			taptempotimes = taptempotimes.slice(taptempotimes.length - 4, taptempotimes.length);
+		}
+		console.log('taptempo', T, taptempotimes);
+		if (taptempotimes.length > 3) {
+			console.log('calc tempo, from input', taptempotimes);
+			var avginterval = (
+				(taptempotimes[3] - taptempotimes[2]) +
+				(taptempotimes[2] - taptempotimes[1]) +
+				(taptempotimes[1] - taptempotimes[0])
+			) / 3.0;
+			console.log('average interval', avginterval);
+			beatinterval = avginterval;
+			lastbeat = taptempotimes[3];
+			beatstep = 0;
+			runel.checked = true;
+			manualbpm = true;
+		}
+	}
+
+    window.addEventListener('keydown', k => {
+		console.log('key', k)
+		if (k.key == 't') {
+			taptempo();
+		} else {
+			ws.send('B');
+		}
+	})
+
+	var beatinterval = 0;
+	var manualbpm = false;
+
+	function tickbpm() {
+		var T = Date.now();
+		if (T > (lastbeat + beatinterval) && manualbpm) {
+			lastbeat = T;
+			console.log('manual beat B');
+			ws.send('B');
+			if (beatstep % 4 == 2) {
+				console.log('manual beat A');
+				ws.send('A');
+			}			
+			if (beatstep % 5 == 3) {
+				console.log('manual beat C');
+				ws.send('C');
+			}			
+			beatstep += 1;
+		}
+	}
+
+	function updatebpm() {
+		console.log('bpm', bpm);
+		beatinterval = 1000 * (60.0 / bpm);
+		console.log('interval', beatinterval);
+	}
+
+	var lastbeat = 0;
+
+	var t3el = document.getElementById('t3');
+	var bpm = t3el.value;
+	t3el.addEventListener('change', e => {
+		bpm = t3el.value;
+		updatebpm();
+	});
+
+	updatebpm();
+
+	var runel = document.getElementById('run');
+	runel.addEventListener('click', e => { manualbpm = runel.checked; });
+
+	var tapel = document.getElementById('taptempo');
+	tapel.addEventListener('click', e => taptempo());
 };
