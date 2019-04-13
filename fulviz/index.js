@@ -1,4 +1,4 @@
-var canvas, ctx, T
+var canvas, ctx, T, ws
 
 var COLORS = [
     '#1abc9c',
@@ -9,6 +9,7 @@ var COLORS = [
     '#e67e22',
     '#e74c3c'
 ]
+
 var ps = []
 
 function emit(x,y,radius,color) {
@@ -86,12 +87,17 @@ function emitbg() {
         50 + Math.random() * 400,
         50 + Math.random() * 400,
         30 + Math.random() * 70,
-        '#012'
+        '#013'
     )
 }
 
 function init() {
     T = 0
+    ws = new WebSocket('ws://possan.ngrok.io');
+    ws.onmessage = data => {
+        console.log('data', data);
+        tap();
+    }
     window.addEventListener('keydown', k => {
         console.log('key', k)
         tap()
