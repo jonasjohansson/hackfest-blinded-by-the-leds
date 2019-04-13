@@ -1,3 +1,26 @@
+var beat = 0;
+window.onload = function() {
+	'use strict';
+	const ws = new WebSocket('ws://127.0.0.1:3927');
+
+	ws.onmessage = function(evt) {
+		var received_msg = evt.data;
+	};
+
+	ws.onmessage = evt => {
+		console.log('received: %s', evt.data);
+		beat = evt.data;
+	};
+};
+
+window.requestAnimationFrame(callback);
+
+function callback() {
+	beat *= 0.9;
+	console.log(beat);
+	window.requestAnimationFrame(callback);
+}
+
 AFRAME.registerComponent('pyramids', {
 	schema: {},
 

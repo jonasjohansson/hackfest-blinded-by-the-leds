@@ -2,9 +2,13 @@ window.onload = function() {
 	'use strict';
 
 	const ws = new WebSocket('ws://127.0.0.1:3927');
-	setTimeout(function() {
-		ws.send('AS');
-	}, 1000);
+
+	setInterval(function() {
+		var msg = 1;
+		ws.send(msg);
+		console.log(msg);
+	}, 500);
+
 	var paths = document.getElementsByTagName('path');
 	var visualizer = document.getElementById('visualizer');
 	var mask = visualizer.getElementById('mask');
@@ -12,10 +16,8 @@ window.onload = function() {
 	var report = 0;
 
 	var soundAllowed = function(stream) {
-		//Audio stops listening in FF without // window.persistAudioStream = stream;
-		//https://bugzilla.mozilla.org/show_bug.cgi?id=965483
-		//https://support.mozilla.org/en-US/questions/984179
 		window.persistAudioStream = stream;
+
 		var audioContent = new AudioContext();
 		var audioStream = audioContent.createMediaStreamSource(stream);
 		var analyser = audioContent.createAnalyser();
@@ -25,8 +27,6 @@ window.onload = function() {
 		var frequencyArray = new Uint8Array(analyser.frequencyBinCount);
 		visualizer.setAttribute('viewBox', '0 0 255 255');
 
-		//Through the frequencyArray has a length longer than 255, there seems to be no
-		//significant data after this point. Not worth visualizing.
 		for (var i = 0; i < 255; i++) {
 			path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 			path.setAttribute('stroke-dasharray', '4,1');
@@ -49,10 +49,5 @@ window.onload = function() {
 		console.log(error);
 	};
 
-	/*window.navigator = window.navigator || {};
-    /*navigator.getUserMedia =  navigator.getUserMedia       ||
-                              navigator.webkitGetUserMedia ||
-                              navigator.mozGetUserMedia    ||
-                              null;*/
 	navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
 };
