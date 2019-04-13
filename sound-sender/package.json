@@ -1,0 +1,29 @@
+{
+  "name": "smartsuit-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonasjohansson/smartsuit-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "music-beat-detector": "^0.1.1",
+    "speaker": "^0.4.1",
+    "web-audio-beat-detector": "^7.0.40",
+    "ws": "^6.2.1",
+    "fili": "^2.0.3",
+    "sliding-window-max": "^0.1.0",
+    "through2": "^3.0.1"
+  },
+  "devDependencies": {
+    "create-music-stream": "^1.0.0",
+    "speaker": "^0.4.1"
+  }
+}
