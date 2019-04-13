@@ -1,23 +1,36 @@
 var beat = 1;
 var beatCounter = 0;
+var earliestnextbeat = 0;
 
 window.onload = function() {
 	'use strict';
 
-	const ws = new WebSocket('ws://possan.ngrok.io');
+	const ws = new WebSocket('ws://192.168.1.18:3927');
 
 	ws.onmessage = evt => {
-		// console.log('received: %s', evt.data);
-		beat = 1;
+		switch (evt.data) {
+			case 'A':
+				break;
+			case 'B':
+				let T = Date.now();
+				if (T > earliestnextbeat) {
+					earliestnextbeat = T + 300;
+					beat = 1;
+					// console.log('received: %s', evt.data);
+				}
+				break;
+			case 'C':
+				break;
+		}
 	};
 };
 
 window.requestAnimationFrame(callback);
 
 function callback() {
-	beat *= 0.8;
+	beat *= 0.95;
 	if (beat < 0.1) beat = 0;
-	// console.log(beat);
+	if (beat !== 0) console.log(beat);
 
 	window.requestAnimationFrame(callback);
 }
@@ -35,6 +48,8 @@ Number.prototype.map = function(in_min, in_max, out_min, out_max) {
 	return ((this - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
 };
 
-function getRandomInt(max) {
-	return Math.floor(Math.random() * Math.floor(max));
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }

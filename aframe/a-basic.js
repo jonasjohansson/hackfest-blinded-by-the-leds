@@ -15,15 +15,16 @@ AFRAME.registerComponent('basic', {
 		this.parent.addEventListener('markerFound', e => {
 			this.entity.setAttribute('material', `transparent: true; opacity: 1; color: ${getRandomColor()}`);
 
-			switch (getRandomInt(3)) {
+			var r = getRandomInt(0, 2);
+			switch (r) {
 				case 0:
 					this.entity.setAttribute('geometry', 'primitive: box; width: 1; height: 1; depth: 1');
 					break;
 				case 1:
-					this.entity.setAttribute('geometry', 'primitive: cylinder; segments-radial: 6');
+					this.entity.setAttribute('geometry', `primitive: cylinder; segments-radial: ${getRandomInt(1, 6)}`);
 					break;
 				case 2:
-					this.entity.setAttribute('geometry', 'primitive: box; width: 1; height: 1; depth: 1');
+					this.entity.setAttribute('geometry', `primitive: sphere; radius: ${getRandomInt(1, 6)}`);
 					break;
 			}
 

@@ -6,27 +6,64 @@
 		<!-- <script src="https://unpkg.com/three@0.102.1/examples/js/GPUParticleSystem.js"></script> -->
 		<!-- <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script> -->
 		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/dev/aframe/build/aframe-ar.js"></script>
-		<script src="https://unpkg.com/aframe-extras@4.1.2/dist/aframe-extras.loaders.min.js"></script>
+		<!-- <script src="https://unpkg.com/aframe-extras@4.1.2/dist/aframe-extras.loaders.min.js"></script> -->
+		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
 		<script src="https://unpkg.com/three@0.95.0/examples/js/libs/inflate.min.js"></script>
 		<script type="text/javascript" src="a-basic.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 	</head>
 	<body style="overflow:hidden;">
-		<a-scene
-			fog="type: linear; color: #AAB; far: 30; near: 0"
-			embedded
-			arjs="debugUIEnabled: false; cameraParametersUrl: camera_para.dat"
-			vr-mode-ui="enabled: false"
-		>
+		<a-scene embedded arjs="debugUIEnabled: false; cameraParametersUrl: camera_para.dat" vr-mode-ui="enabled: false">
 			<a-assets> </a-assets>
 
-			<a-marker id="a" type="pattern" url="patt/Artboard 1.patt">
+			<a-marker type="pattern" url="patt/patt-a.patt">
 				<a-entity basic></a-entity>
 			</a-marker>
 
-			<a-marker id="b" type="pattern" url="patt/pattern-marker.patt">
+			<a-marker type="pattern" url="patt/patt-b.patt">
 				<a-entity basic></a-entity>
-				<!-- <a-plane src="textures/green.png" height="1" width="1" rotation="-90 0 0" position="0 0 0"></a-plane> -->
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-c.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-d.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-e.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-f.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-g.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-h.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-i.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-j.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-k.patt">
+				<a-entity basic></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="patt/patt-l.patt">
+				<!-- <a-entity position="0 0 0" particle-system="color: #EF0000,#44CC00"></a-entity> -->
+				<!-- <a-plane src""textures/green.png" height""1" width="1" rotation="-90 0 0" position="0 0 0"></a-plane> -->
+				<a-entity basic></a-entity>
 			</a-marker>
 
 			<a-entity camera></a-entity>
