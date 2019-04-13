@@ -1,7 +1,7 @@
 window.onload = function() {
 	'use strict';
 
-	const ws = new WebSocket('ws://127.0.0.1:3927');
+	const ws = new WebSocket('ws://possan.ngrok.io');
 
 	setInterval(function() {
 		var msg = 1;
