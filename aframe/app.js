@@ -8,6 +8,7 @@ window.onload = function() {
 	const ws = new WebSocket('ws://192.168.1.18:3927');
 
 	ws.onmessage = evt => {
+		console.log(evt.data);
 		switch (evt.data) {
 			case 'A':
 				break;
