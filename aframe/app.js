@@ -1,16 +1,13 @@
 var beat = 1;
+var beatCounter = 0;
 
 window.onload = function() {
 	'use strict';
-	const ws = new WebSocket('ws://possan.ngrok.io');
 
-	ws.onmessage = function(evt) {
-		var received_msg = evt.data;
-	};
+	const ws = new WebSocket('ws://possan.ngrok.io');
 
 	ws.onmessage = evt => {
 		// console.log('received: %s', evt.data);
-		// beat = evt.data;
 		beat = 1;
 	};
 };
@@ -18,7 +15,7 @@ window.onload = function() {
 window.requestAnimationFrame(callback);
 
 function callback() {
-	// beat *= 0.9;
+	beat *= 0.8;
 	if (beat < 0.1) beat = 0;
 	// console.log(beat);
 
@@ -37,3 +34,7 @@ function getRandomColor() {
 Number.prototype.map = function(in_min, in_max, out_min, out_max) {
 	return ((this - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
 };
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * Math.floor(max));
+}

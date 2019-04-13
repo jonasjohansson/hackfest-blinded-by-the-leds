@@ -11,8 +11,13 @@
 		<script type="text/javascript" src="a-basic.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 	</head>
-	<body>
-		<a-scene embedded arjs="debugUIEnabled: false; cameraParametersUrl: camera_para.dat" vr-mode-ui="enabled: false">
+	<body style="overflow:hidden;">
+		<a-scene
+			fog="type: linear; color: #AAB; far: 30; near: 0"
+			embedded
+			arjs="debugUIEnabled: false; cameraParametersUrl: camera_para.dat"
+			vr-mode-ui="enabled: false"
+		>
 			<a-assets> </a-assets>
 
 			<a-marker id="a" type="pattern" url="patt/Artboard 1.patt">
@@ -21,6 +26,7 @@
 
 			<a-marker id="b" type="pattern" url="patt/pattern-marker.patt">
 				<a-entity basic></a-entity>
+				<!-- <a-plane src="textures/green.png" height="1" width="1" rotation="-90 0 0" position="0 0 0"></a-plane> -->
 			</a-marker>
 
 			<a-entity camera></a-entity>
