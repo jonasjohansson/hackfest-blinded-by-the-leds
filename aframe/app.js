@@ -1,4 +1,5 @@
 var beat = 0;
+
 window.onload = function() {
 	'use strict';
 	const ws = new WebSocket('ws://possan.ngrok.io');
@@ -17,26 +18,25 @@ window.requestAnimationFrame(callback);
 
 function callback() {
 	beat *= 0.9;
-	console.log(beat);
 	window.requestAnimationFrame(callback);
 }
 
-AFRAME.registerComponent('pyramids', {
+AFRAME.registerComponent('cool-stuff', {
 	schema: {},
 
 	update: function() {
 		var data = this.data;
 		var el = this.el;
-		var offset = 250;
-
-		var h = 210;
 
 		this.ent = document.createElement('a-entity');
 		this.ent.setAttribute('geometry', 'primitive: box; width: 1; height: 1; depth: 1');
+
 		el.appendChild(this.ent);
 	},
 
 	tick: function() {
-		this.ent.material.opacity = beat;
+		this.material = this.ent.getOrCreateObject3D('mesh').material;
+		this.material.transparent = true;
+		this.material.opacity = beat;
 	}
 });
