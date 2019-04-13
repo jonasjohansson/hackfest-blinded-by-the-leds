@@ -1,4 +1,4 @@
-var beat = 0;
+var beat = 1;
 
 window.onload = function() {
 	'use strict';
@@ -9,8 +9,8 @@ window.onload = function() {
 	};
 
 	ws.onmessage = evt => {
-		console.log('received: %s', evt.data);
-		beat = evt.data;
+		// console.log('received: %s', evt.data);
+		// beat = evt.data;
 		beat = 1;
 	};
 };
@@ -18,24 +18,22 @@ window.onload = function() {
 window.requestAnimationFrame(callback);
 
 function callback() {
-	if (beat > 0) beat *= 0.9;
+	// beat *= 0.9;
+	if (beat < 0.1) beat = 0;
+	// console.log(beat);
+
 	window.requestAnimationFrame(callback);
 }
 
-AFRAME.registerComponent('cool-stuff', {
-	schema: {},
-
-	update: function() {
-		var data = this.data;
-		var el = this.el;
-
-		this.ent = document.createElement('a-entity');
-		this.ent.setAttribute('geometry', 'primitive: box; width: 1; height: 1; depth: 1');
-		this.ent.setAttribute('material', 'transparent: true; opacity: 1');
-		el.appendChild(this.ent);
-	},
-
-	tick: function() {
-		this.ent.object3D.children[0].material.opacity = beat;
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
 	}
-});
+	return color;
+}
+
+Number.prototype.map = function(in_min, in_max, out_min, out_max) {
+	return ((this - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+};
