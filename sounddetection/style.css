@@ -41,3 +41,9 @@ path {
 	stroke: white;
 	stroke-width: 0.5px;
 }
+
+#controls {
+	position: absolute;
+	left: 0;
+	top: 120px;
+}
