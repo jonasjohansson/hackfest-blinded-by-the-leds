@@ -11,13 +11,14 @@ window.onload = function() {
 	ws.onmessage = evt => {
 		console.log('received: %s', evt.data);
 		beat = evt.data;
+		beat = 1;
 	};
 };
 
 window.requestAnimationFrame(callback);
 
 function callback() {
-	beat *= 0.9;
+	if (beat > 0) beat *= 0.9;
 	window.requestAnimationFrame(callback);
 }
 
@@ -30,13 +31,11 @@ AFRAME.registerComponent('cool-stuff', {
 
 		this.ent = document.createElement('a-entity');
 		this.ent.setAttribute('geometry', 'primitive: box; width: 1; height: 1; depth: 1');
-
+		this.ent.setAttribute('material', 'transparent: true; opacity: 1');
 		el.appendChild(this.ent);
 	},
 
 	tick: function() {
-		this.material = this.ent.getOrCreateObject3D('mesh').material;
-		this.material.transparent = true;
-		this.material.opacity = beat;
+		this.ent.object3D.children[0].material.opacity = beat;
 	}
 });

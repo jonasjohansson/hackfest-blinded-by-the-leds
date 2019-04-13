@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<script src="https://unpkg.com/aframe@0.9.0/dist/aframe-master.js"></script>
-		<script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+		<script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script>
 		<script src="https://unpkg.com/aframe-extras@4.1.2/dist/aframe-extras.loaders.min.js"></script>
 		<script src="https://unpkg.com/three@0.95.0/examples/js/libs/inflate.min.js"></script>
 		<script type="text/javascript" src="app.js"></script>
@@ -11,11 +11,11 @@
 		<a-scene embedded arjs="debugUIEnabled: false; cameraParametersUrl: camera_para.dat" vr-mode-ui="enabled: false">
 			<a-assets> </a-assets>
 
-			<a-marker-camera preset="pattern">
-				<a-marker type="pattern" url="pattern-marker.patt">
-					<a-entity cool-stuff></a-entity>
-				</a-marker>
-			</a-marker-camera>
+			<a-marker type="pattern" url="pattern-marker.patt">
+				<a-entity cool-stuff></a-entity>
+			</a-marker>
+
+			<a-entity camera></a-entity>
 		</a-scene>
 	</body>
 </html>
