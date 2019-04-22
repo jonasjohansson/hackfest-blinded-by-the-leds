@@ -5,7 +5,7 @@ var earliestnextbeat = 0;
 window.onload = function() {
 	'use strict';
 
-	const ws = new WebSocket('ws://192.168.1.18:3927');
+	const ws = new WebSocket('ws://possan.eu.ngrok.io');
 
 	ws.onmessage = evt => {
 		console.log(evt.data);
